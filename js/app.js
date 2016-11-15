@@ -8,7 +8,7 @@
 
 	//注册主控制器
 	
-	todoMvc.controller('todoMvcController',['$scope',function($scope){
+	todoMvc.controller('todoMvcController',['$scope','$location',function($scope,$location){
 
 		//文本框需要一个模型
 		$scope.text = '';
@@ -79,6 +79,31 @@
 			}
 			now = !now;
 		}
+
+		//状态筛选
+		
+		$scope.location = $location;
+		//监视，由于$watch只能监视$scope的成员，所以赋值一个$scope的成员
+		$scope.$watch('location.path()',function(now,old){
+			
+			$scope.selector = (function () {
+			//1.拿到锚点
+			//var hash = window.location.hash;
+			//用注入$location的方式更好，不依赖window对象
+			//console.log(now);
+			//2.更改selector
+			switch(now){
+				case '/active':
+				return false;
+				case '/completed':
+				return true;
+				default:
+				break;
+			}
+		})();
+		
+		})
+
 	}])
 
 })(angular);
