@@ -32,10 +32,12 @@
 				text: $scope.text, 
 				completed: false
 			})
+
+			//清空模型数据
+			$scope.text = '';
 		};
 
-		//清空模型数据
-		//$scope.text = '';
+
 
 		//处理删除
 		$scope.remove = function (id){
